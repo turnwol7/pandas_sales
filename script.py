@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 data = pd.read_csv('sales_data.csv')
 
@@ -22,8 +23,7 @@ print(f"Best-Selling Product: {best_selling_product}")
 average_revenue = data.groupby("Product")["Revenue"].mean()
 print(f"average revenue per product: {average_revenue}")
 
-#plotting
-
+#plotting revenue over time
 plt.figure(figsize=(10, 5))
 plt.plot(data["Date"], data["Revenue"], marker="o", linestyle="-", color="b")
 plt.xlabel("Date")
@@ -32,3 +32,16 @@ plt.title("Daily Revenue Trend")
 plt.xticks(rotation=45)
 plt.grid()
 plt.show()
+
+# plot sales by product 
+plt.figure(figsize=(8,4))
+sns.barplot(x="Product", y="Revenue", data=data)
+plt.xlabel("Product")
+plt.ylabel("Revenue")
+plt.title("Revenue per product")
+plt.show()
+
+
+#finnally save new data to cleaned file csv
+data.to_csv("cleaned_csv.csv", index=False)
+print("cleaned data and saved to cleaned_csv.csv")
